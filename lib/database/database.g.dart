@@ -35,18 +35,6 @@ class $LogDataTable extends LogData with TableInfo<$LogDataTable, LogDataData> {
           GeneratedColumn.checkTextLength(minTextLength: 3, maxTextLength: 4),
       type: DriftSqlType.string,
       requiredDuringInsert: true);
-  static const VerificationMeta _departureTimeMeta =
-      const VerificationMeta('departureTime');
-  @override
-  late final GeneratedColumn<DateTime> departureTime =
-      GeneratedColumn<DateTime>('departure_time', aliasedName, false,
-          type: DriftSqlType.dateTime, requiredDuringInsert: true);
-  static const VerificationMeta _arrivalTimeMeta =
-      const VerificationMeta('arrivalTime');
-  @override
-  late final GeneratedColumn<DateTime> arrivalTime = GeneratedColumn<DateTime>(
-      'arrival_time', aliasedName, false,
-      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   static const VerificationMeta _flightNumberMeta =
       const VerificationMeta('flightNumber');
   @override
@@ -59,18 +47,18 @@ class $LogDataTable extends LogData with TableInfo<$LogDataTable, LogDataData> {
   late final GeneratedColumn<String> airline = GeneratedColumn<String>(
       'airline', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _equipmentMeta =
-      const VerificationMeta('equipment');
+  static const VerificationMeta _departureDateMeta =
+      const VerificationMeta('departureDate');
   @override
-  late final GeneratedColumn<String> equipment = GeneratedColumn<String>(
-      'equipment', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
-  static const VerificationMeta _aircraftRegisterMeta =
-      const VerificationMeta('aircraftRegister');
+  late final GeneratedColumn<DateTime> departureDate =
+      GeneratedColumn<DateTime>('departure_date', aliasedName, false,
+          type: DriftSqlType.dateTime, requiredDuringInsert: true);
+  static const VerificationMeta _arrivalDateMeta =
+      const VerificationMeta('arrivalDate');
   @override
-  late final GeneratedColumn<String> aircraftRegister = GeneratedColumn<String>(
-      'aircraft_register', aliasedName, false,
-      type: DriftSqlType.string, requiredDuringInsert: true);
+  late final GeneratedColumn<DateTime> arrivalDate = GeneratedColumn<DateTime>(
+      'arrival_date', aliasedName, false,
+      type: DriftSqlType.dateTime, requiredDuringInsert: true);
   static const VerificationMeta _createdAtMeta =
       const VerificationMeta('createdAt');
   @override
@@ -88,12 +76,10 @@ class $LogDataTable extends LogData with TableInfo<$LogDataTable, LogDataData> {
         id,
         departure,
         arrival,
-        departureTime,
-        arrivalTime,
         flightNumber,
         airline,
-        equipment,
-        aircraftRegister,
+        departureDate,
+        arrivalDate,
         createdAt,
         updatedAt
       ];
@@ -122,22 +108,6 @@ class $LogDataTable extends LogData with TableInfo<$LogDataTable, LogDataData> {
     } else if (isInserting) {
       context.missing(_arrivalMeta);
     }
-    if (data.containsKey('departure_time')) {
-      context.handle(
-          _departureTimeMeta,
-          departureTime.isAcceptableOrUnknown(
-              data['departure_time']!, _departureTimeMeta));
-    } else if (isInserting) {
-      context.missing(_departureTimeMeta);
-    }
-    if (data.containsKey('arrival_time')) {
-      context.handle(
-          _arrivalTimeMeta,
-          arrivalTime.isAcceptableOrUnknown(
-              data['arrival_time']!, _arrivalTimeMeta));
-    } else if (isInserting) {
-      context.missing(_arrivalTimeMeta);
-    }
     if (data.containsKey('flight_number')) {
       context.handle(
           _flightNumberMeta,
@@ -152,19 +122,21 @@ class $LogDataTable extends LogData with TableInfo<$LogDataTable, LogDataData> {
     } else if (isInserting) {
       context.missing(_airlineMeta);
     }
-    if (data.containsKey('equipment')) {
-      context.handle(_equipmentMeta,
-          equipment.isAcceptableOrUnknown(data['equipment']!, _equipmentMeta));
-    } else if (isInserting) {
-      context.missing(_equipmentMeta);
-    }
-    if (data.containsKey('aircraft_register')) {
+    if (data.containsKey('departure_date')) {
       context.handle(
-          _aircraftRegisterMeta,
-          aircraftRegister.isAcceptableOrUnknown(
-              data['aircraft_register']!, _aircraftRegisterMeta));
+          _departureDateMeta,
+          departureDate.isAcceptableOrUnknown(
+              data['departure_date']!, _departureDateMeta));
     } else if (isInserting) {
-      context.missing(_aircraftRegisterMeta);
+      context.missing(_departureDateMeta);
+    }
+    if (data.containsKey('arrival_date')) {
+      context.handle(
+          _arrivalDateMeta,
+          arrivalDate.isAcceptableOrUnknown(
+              data['arrival_date']!, _arrivalDateMeta));
+    } else if (isInserting) {
+      context.missing(_arrivalDateMeta);
     }
     if (data.containsKey('created_at')) {
       context.handle(_createdAtMeta,
@@ -189,18 +161,14 @@ class $LogDataTable extends LogData with TableInfo<$LogDataTable, LogDataData> {
           .read(DriftSqlType.string, data['${effectivePrefix}departure'])!,
       arrival: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}arrival'])!,
-      departureTime: attachedDatabase.typeMapping.read(
-          DriftSqlType.dateTime, data['${effectivePrefix}departure_time'])!,
-      arrivalTime: attachedDatabase.typeMapping
-          .read(DriftSqlType.dateTime, data['${effectivePrefix}arrival_time'])!,
       flightNumber: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}flight_number'])!,
       airline: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}airline'])!,
-      equipment: attachedDatabase.typeMapping
-          .read(DriftSqlType.string, data['${effectivePrefix}equipment'])!,
-      aircraftRegister: attachedDatabase.typeMapping.read(
-          DriftSqlType.string, data['${effectivePrefix}aircraft_register'])!,
+      departureDate: attachedDatabase.typeMapping.read(
+          DriftSqlType.dateTime, data['${effectivePrefix}departure_date'])!,
+      arrivalDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.dateTime, data['${effectivePrefix}arrival_date'])!,
       createdAt: attachedDatabase.typeMapping
           .read(DriftSqlType.dateTime, data['${effectivePrefix}created_at']),
       updatedAt: attachedDatabase.typeMapping
@@ -218,24 +186,20 @@ class LogDataData extends DataClass implements Insertable<LogDataData> {
   final int id;
   final String departure;
   final String arrival;
-  final DateTime departureTime;
-  final DateTime arrivalTime;
   final String flightNumber;
   final String airline;
-  final String equipment;
-  final String aircraftRegister;
+  final DateTime departureDate;
+  final DateTime arrivalDate;
   final DateTime? createdAt;
   final DateTime? updatedAt;
   const LogDataData(
       {required this.id,
       required this.departure,
       required this.arrival,
-      required this.departureTime,
-      required this.arrivalTime,
       required this.flightNumber,
       required this.airline,
-      required this.equipment,
-      required this.aircraftRegister,
+      required this.departureDate,
+      required this.arrivalDate,
       this.createdAt,
       this.updatedAt});
   @override
@@ -244,12 +208,10 @@ class LogDataData extends DataClass implements Insertable<LogDataData> {
     map['id'] = Variable<int>(id);
     map['departure'] = Variable<String>(departure);
     map['arrival'] = Variable<String>(arrival);
-    map['departure_time'] = Variable<DateTime>(departureTime);
-    map['arrival_time'] = Variable<DateTime>(arrivalTime);
     map['flight_number'] = Variable<String>(flightNumber);
     map['airline'] = Variable<String>(airline);
-    map['equipment'] = Variable<String>(equipment);
-    map['aircraft_register'] = Variable<String>(aircraftRegister);
+    map['departure_date'] = Variable<DateTime>(departureDate);
+    map['arrival_date'] = Variable<DateTime>(arrivalDate);
     if (!nullToAbsent || createdAt != null) {
       map['created_at'] = Variable<DateTime>(createdAt);
     }
@@ -264,12 +226,10 @@ class LogDataData extends DataClass implements Insertable<LogDataData> {
       id: Value(id),
       departure: Value(departure),
       arrival: Value(arrival),
-      departureTime: Value(departureTime),
-      arrivalTime: Value(arrivalTime),
       flightNumber: Value(flightNumber),
       airline: Value(airline),
-      equipment: Value(equipment),
-      aircraftRegister: Value(aircraftRegister),
+      departureDate: Value(departureDate),
+      arrivalDate: Value(arrivalDate),
       createdAt: createdAt == null && nullToAbsent
           ? const Value.absent()
           : Value(createdAt),
@@ -286,12 +246,10 @@ class LogDataData extends DataClass implements Insertable<LogDataData> {
       id: serializer.fromJson<int>(json['id']),
       departure: serializer.fromJson<String>(json['departure']),
       arrival: serializer.fromJson<String>(json['arrival']),
-      departureTime: serializer.fromJson<DateTime>(json['departureTime']),
-      arrivalTime: serializer.fromJson<DateTime>(json['arrivalTime']),
       flightNumber: serializer.fromJson<String>(json['flightNumber']),
       airline: serializer.fromJson<String>(json['airline']),
-      equipment: serializer.fromJson<String>(json['equipment']),
-      aircraftRegister: serializer.fromJson<String>(json['aircraftRegister']),
+      departureDate: serializer.fromJson<DateTime>(json['departureDate']),
+      arrivalDate: serializer.fromJson<DateTime>(json['arrivalDate']),
       createdAt: serializer.fromJson<DateTime?>(json['createdAt']),
       updatedAt: serializer.fromJson<DateTime?>(json['updatedAt']),
     );
@@ -303,12 +261,10 @@ class LogDataData extends DataClass implements Insertable<LogDataData> {
       'id': serializer.toJson<int>(id),
       'departure': serializer.toJson<String>(departure),
       'arrival': serializer.toJson<String>(arrival),
-      'departureTime': serializer.toJson<DateTime>(departureTime),
-      'arrivalTime': serializer.toJson<DateTime>(arrivalTime),
       'flightNumber': serializer.toJson<String>(flightNumber),
       'airline': serializer.toJson<String>(airline),
-      'equipment': serializer.toJson<String>(equipment),
-      'aircraftRegister': serializer.toJson<String>(aircraftRegister),
+      'departureDate': serializer.toJson<DateTime>(departureDate),
+      'arrivalDate': serializer.toJson<DateTime>(arrivalDate),
       'createdAt': serializer.toJson<DateTime?>(createdAt),
       'updatedAt': serializer.toJson<DateTime?>(updatedAt),
     };
@@ -318,24 +274,20 @@ class LogDataData extends DataClass implements Insertable<LogDataData> {
           {int? id,
           String? departure,
           String? arrival,
-          DateTime? departureTime,
-          DateTime? arrivalTime,
           String? flightNumber,
           String? airline,
-          String? equipment,
-          String? aircraftRegister,
+          DateTime? departureDate,
+          DateTime? arrivalDate,
           Value<DateTime?> createdAt = const Value.absent(),
           Value<DateTime?> updatedAt = const Value.absent()}) =>
       LogDataData(
         id: id ?? this.id,
         departure: departure ?? this.departure,
         arrival: arrival ?? this.arrival,
-        departureTime: departureTime ?? this.departureTime,
-        arrivalTime: arrivalTime ?? this.arrivalTime,
         flightNumber: flightNumber ?? this.flightNumber,
         airline: airline ?? this.airline,
-        equipment: equipment ?? this.equipment,
-        aircraftRegister: aircraftRegister ?? this.aircraftRegister,
+        departureDate: departureDate ?? this.departureDate,
+        arrivalDate: arrivalDate ?? this.arrivalDate,
         createdAt: createdAt.present ? createdAt.value : this.createdAt,
         updatedAt: updatedAt.present ? updatedAt.value : this.updatedAt,
       );
@@ -344,19 +296,15 @@ class LogDataData extends DataClass implements Insertable<LogDataData> {
       id: data.id.present ? data.id.value : this.id,
       departure: data.departure.present ? data.departure.value : this.departure,
       arrival: data.arrival.present ? data.arrival.value : this.arrival,
-      departureTime: data.departureTime.present
-          ? data.departureTime.value
-          : this.departureTime,
-      arrivalTime:
-          data.arrivalTime.present ? data.arrivalTime.value : this.arrivalTime,
       flightNumber: data.flightNumber.present
           ? data.flightNumber.value
           : this.flightNumber,
       airline: data.airline.present ? data.airline.value : this.airline,
-      equipment: data.equipment.present ? data.equipment.value : this.equipment,
-      aircraftRegister: data.aircraftRegister.present
-          ? data.aircraftRegister.value
-          : this.aircraftRegister,
+      departureDate: data.departureDate.present
+          ? data.departureDate.value
+          : this.departureDate,
+      arrivalDate:
+          data.arrivalDate.present ? data.arrivalDate.value : this.arrivalDate,
       createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
       updatedAt: data.updatedAt.present ? data.updatedAt.value : this.updatedAt,
     );
@@ -368,12 +316,10 @@ class LogDataData extends DataClass implements Insertable<LogDataData> {
           ..write('id: $id, ')
           ..write('departure: $departure, ')
           ..write('arrival: $arrival, ')
-          ..write('departureTime: $departureTime, ')
-          ..write('arrivalTime: $arrivalTime, ')
           ..write('flightNumber: $flightNumber, ')
           ..write('airline: $airline, ')
-          ..write('equipment: $equipment, ')
-          ..write('aircraftRegister: $aircraftRegister, ')
+          ..write('departureDate: $departureDate, ')
+          ..write('arrivalDate: $arrivalDate, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -381,18 +327,8 @@ class LogDataData extends DataClass implements Insertable<LogDataData> {
   }
 
   @override
-  int get hashCode => Object.hash(
-      id,
-      departure,
-      arrival,
-      departureTime,
-      arrivalTime,
-      flightNumber,
-      airline,
-      equipment,
-      aircraftRegister,
-      createdAt,
-      updatedAt);
+  int get hashCode => Object.hash(id, departure, arrival, flightNumber, airline,
+      departureDate, arrivalDate, createdAt, updatedAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -400,12 +336,10 @@ class LogDataData extends DataClass implements Insertable<LogDataData> {
           other.id == this.id &&
           other.departure == this.departure &&
           other.arrival == this.arrival &&
-          other.departureTime == this.departureTime &&
-          other.arrivalTime == this.arrivalTime &&
           other.flightNumber == this.flightNumber &&
           other.airline == this.airline &&
-          other.equipment == this.equipment &&
-          other.aircraftRegister == this.aircraftRegister &&
+          other.departureDate == this.departureDate &&
+          other.arrivalDate == this.arrivalDate &&
           other.createdAt == this.createdAt &&
           other.updatedAt == this.updatedAt);
 }
@@ -414,24 +348,20 @@ class LogDataCompanion extends UpdateCompanion<LogDataData> {
   final Value<int> id;
   final Value<String> departure;
   final Value<String> arrival;
-  final Value<DateTime> departureTime;
-  final Value<DateTime> arrivalTime;
   final Value<String> flightNumber;
   final Value<String> airline;
-  final Value<String> equipment;
-  final Value<String> aircraftRegister;
+  final Value<DateTime> departureDate;
+  final Value<DateTime> arrivalDate;
   final Value<DateTime?> createdAt;
   final Value<DateTime?> updatedAt;
   const LogDataCompanion({
     this.id = const Value.absent(),
     this.departure = const Value.absent(),
     this.arrival = const Value.absent(),
-    this.departureTime = const Value.absent(),
-    this.arrivalTime = const Value.absent(),
     this.flightNumber = const Value.absent(),
     this.airline = const Value.absent(),
-    this.equipment = const Value.absent(),
-    this.aircraftRegister = const Value.absent(),
+    this.departureDate = const Value.absent(),
+    this.arrivalDate = const Value.absent(),
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   });
@@ -439,32 +369,26 @@ class LogDataCompanion extends UpdateCompanion<LogDataData> {
     this.id = const Value.absent(),
     required String departure,
     required String arrival,
-    required DateTime departureTime,
-    required DateTime arrivalTime,
     required String flightNumber,
     required String airline,
-    required String equipment,
-    required String aircraftRegister,
+    required DateTime departureDate,
+    required DateTime arrivalDate,
     this.createdAt = const Value.absent(),
     this.updatedAt = const Value.absent(),
   })  : departure = Value(departure),
         arrival = Value(arrival),
-        departureTime = Value(departureTime),
-        arrivalTime = Value(arrivalTime),
         flightNumber = Value(flightNumber),
         airline = Value(airline),
-        equipment = Value(equipment),
-        aircraftRegister = Value(aircraftRegister);
+        departureDate = Value(departureDate),
+        arrivalDate = Value(arrivalDate);
   static Insertable<LogDataData> custom({
     Expression<int>? id,
     Expression<String>? departure,
     Expression<String>? arrival,
-    Expression<DateTime>? departureTime,
-    Expression<DateTime>? arrivalTime,
     Expression<String>? flightNumber,
     Expression<String>? airline,
-    Expression<String>? equipment,
-    Expression<String>? aircraftRegister,
+    Expression<DateTime>? departureDate,
+    Expression<DateTime>? arrivalDate,
     Expression<DateTime>? createdAt,
     Expression<DateTime>? updatedAt,
   }) {
@@ -472,12 +396,10 @@ class LogDataCompanion extends UpdateCompanion<LogDataData> {
       if (id != null) 'id': id,
       if (departure != null) 'departure': departure,
       if (arrival != null) 'arrival': arrival,
-      if (departureTime != null) 'departure_time': departureTime,
-      if (arrivalTime != null) 'arrival_time': arrivalTime,
       if (flightNumber != null) 'flight_number': flightNumber,
       if (airline != null) 'airline': airline,
-      if (equipment != null) 'equipment': equipment,
-      if (aircraftRegister != null) 'aircraft_register': aircraftRegister,
+      if (departureDate != null) 'departure_date': departureDate,
+      if (arrivalDate != null) 'arrival_date': arrivalDate,
       if (createdAt != null) 'created_at': createdAt,
       if (updatedAt != null) 'updated_at': updatedAt,
     });
@@ -487,24 +409,20 @@ class LogDataCompanion extends UpdateCompanion<LogDataData> {
       {Value<int>? id,
       Value<String>? departure,
       Value<String>? arrival,
-      Value<DateTime>? departureTime,
-      Value<DateTime>? arrivalTime,
       Value<String>? flightNumber,
       Value<String>? airline,
-      Value<String>? equipment,
-      Value<String>? aircraftRegister,
+      Value<DateTime>? departureDate,
+      Value<DateTime>? arrivalDate,
       Value<DateTime?>? createdAt,
       Value<DateTime?>? updatedAt}) {
     return LogDataCompanion(
       id: id ?? this.id,
       departure: departure ?? this.departure,
       arrival: arrival ?? this.arrival,
-      departureTime: departureTime ?? this.departureTime,
-      arrivalTime: arrivalTime ?? this.arrivalTime,
       flightNumber: flightNumber ?? this.flightNumber,
       airline: airline ?? this.airline,
-      equipment: equipment ?? this.equipment,
-      aircraftRegister: aircraftRegister ?? this.aircraftRegister,
+      departureDate: departureDate ?? this.departureDate,
+      arrivalDate: arrivalDate ?? this.arrivalDate,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -522,23 +440,17 @@ class LogDataCompanion extends UpdateCompanion<LogDataData> {
     if (arrival.present) {
       map['arrival'] = Variable<String>(arrival.value);
     }
-    if (departureTime.present) {
-      map['departure_time'] = Variable<DateTime>(departureTime.value);
-    }
-    if (arrivalTime.present) {
-      map['arrival_time'] = Variable<DateTime>(arrivalTime.value);
-    }
     if (flightNumber.present) {
       map['flight_number'] = Variable<String>(flightNumber.value);
     }
     if (airline.present) {
       map['airline'] = Variable<String>(airline.value);
     }
-    if (equipment.present) {
-      map['equipment'] = Variable<String>(equipment.value);
+    if (departureDate.present) {
+      map['departure_date'] = Variable<DateTime>(departureDate.value);
     }
-    if (aircraftRegister.present) {
-      map['aircraft_register'] = Variable<String>(aircraftRegister.value);
+    if (arrivalDate.present) {
+      map['arrival_date'] = Variable<DateTime>(arrivalDate.value);
     }
     if (createdAt.present) {
       map['created_at'] = Variable<DateTime>(createdAt.value);
@@ -555,12 +467,10 @@ class LogDataCompanion extends UpdateCompanion<LogDataData> {
           ..write('id: $id, ')
           ..write('departure: $departure, ')
           ..write('arrival: $arrival, ')
-          ..write('departureTime: $departureTime, ')
-          ..write('arrivalTime: $arrivalTime, ')
           ..write('flightNumber: $flightNumber, ')
           ..write('airline: $airline, ')
-          ..write('equipment: $equipment, ')
-          ..write('aircraftRegister: $aircraftRegister, ')
+          ..write('departureDate: $departureDate, ')
+          ..write('arrivalDate: $arrivalDate, ')
           ..write('createdAt: $createdAt, ')
           ..write('updatedAt: $updatedAt')
           ..write(')'))
@@ -583,12 +493,10 @@ typedef $$LogDataTableCreateCompanionBuilder = LogDataCompanion Function({
   Value<int> id,
   required String departure,
   required String arrival,
-  required DateTime departureTime,
-  required DateTime arrivalTime,
   required String flightNumber,
   required String airline,
-  required String equipment,
-  required String aircraftRegister,
+  required DateTime departureDate,
+  required DateTime arrivalDate,
   Value<DateTime?> createdAt,
   Value<DateTime?> updatedAt,
 });
@@ -596,12 +504,10 @@ typedef $$LogDataTableUpdateCompanionBuilder = LogDataCompanion Function({
   Value<int> id,
   Value<String> departure,
   Value<String> arrival,
-  Value<DateTime> departureTime,
-  Value<DateTime> arrivalTime,
   Value<String> flightNumber,
   Value<String> airline,
-  Value<String> equipment,
-  Value<String> aircraftRegister,
+  Value<DateTime> departureDate,
+  Value<DateTime> arrivalDate,
   Value<DateTime?> createdAt,
   Value<DateTime?> updatedAt,
 });
@@ -624,24 +530,17 @@ class $$LogDataTableFilterComposer
   ColumnFilters<String> get arrival => $composableBuilder(
       column: $table.arrival, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<DateTime> get departureTime => $composableBuilder(
-      column: $table.departureTime, builder: (column) => ColumnFilters(column));
-
-  ColumnFilters<DateTime> get arrivalTime => $composableBuilder(
-      column: $table.arrivalTime, builder: (column) => ColumnFilters(column));
-
   ColumnFilters<String> get flightNumber => $composableBuilder(
       column: $table.flightNumber, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<String> get airline => $composableBuilder(
       column: $table.airline, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get equipment => $composableBuilder(
-      column: $table.equipment, builder: (column) => ColumnFilters(column));
+  ColumnFilters<DateTime> get departureDate => $composableBuilder(
+      column: $table.departureDate, builder: (column) => ColumnFilters(column));
 
-  ColumnFilters<String> get aircraftRegister => $composableBuilder(
-      column: $table.aircraftRegister,
-      builder: (column) => ColumnFilters(column));
+  ColumnFilters<DateTime> get arrivalDate => $composableBuilder(
+      column: $table.arrivalDate, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<DateTime> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnFilters(column));
@@ -668,13 +567,6 @@ class $$LogDataTableOrderingComposer
   ColumnOrderings<String> get arrival => $composableBuilder(
       column: $table.arrival, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<DateTime> get departureTime => $composableBuilder(
-      column: $table.departureTime,
-      builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<DateTime> get arrivalTime => $composableBuilder(
-      column: $table.arrivalTime, builder: (column) => ColumnOrderings(column));
-
   ColumnOrderings<String> get flightNumber => $composableBuilder(
       column: $table.flightNumber,
       builder: (column) => ColumnOrderings(column));
@@ -682,12 +574,12 @@ class $$LogDataTableOrderingComposer
   ColumnOrderings<String> get airline => $composableBuilder(
       column: $table.airline, builder: (column) => ColumnOrderings(column));
 
-  ColumnOrderings<String> get equipment => $composableBuilder(
-      column: $table.equipment, builder: (column) => ColumnOrderings(column));
-
-  ColumnOrderings<String> get aircraftRegister => $composableBuilder(
-      column: $table.aircraftRegister,
+  ColumnOrderings<DateTime> get departureDate => $composableBuilder(
+      column: $table.departureDate,
       builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<DateTime> get arrivalDate => $composableBuilder(
+      column: $table.arrivalDate, builder: (column) => ColumnOrderings(column));
 
   ColumnOrderings<DateTime> get createdAt => $composableBuilder(
       column: $table.createdAt, builder: (column) => ColumnOrderings(column));
@@ -714,23 +606,17 @@ class $$LogDataTableAnnotationComposer
   GeneratedColumn<String> get arrival =>
       $composableBuilder(column: $table.arrival, builder: (column) => column);
 
-  GeneratedColumn<DateTime> get departureTime => $composableBuilder(
-      column: $table.departureTime, builder: (column) => column);
-
-  GeneratedColumn<DateTime> get arrivalTime => $composableBuilder(
-      column: $table.arrivalTime, builder: (column) => column);
-
   GeneratedColumn<String> get flightNumber => $composableBuilder(
       column: $table.flightNumber, builder: (column) => column);
 
   GeneratedColumn<String> get airline =>
       $composableBuilder(column: $table.airline, builder: (column) => column);
 
-  GeneratedColumn<String> get equipment =>
-      $composableBuilder(column: $table.equipment, builder: (column) => column);
+  GeneratedColumn<DateTime> get departureDate => $composableBuilder(
+      column: $table.departureDate, builder: (column) => column);
 
-  GeneratedColumn<String> get aircraftRegister => $composableBuilder(
-      column: $table.aircraftRegister, builder: (column) => column);
+  GeneratedColumn<DateTime> get arrivalDate => $composableBuilder(
+      column: $table.arrivalDate, builder: (column) => column);
 
   GeneratedColumn<DateTime> get createdAt =>
       $composableBuilder(column: $table.createdAt, builder: (column) => column);
@@ -765,12 +651,10 @@ class $$LogDataTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<String> departure = const Value.absent(),
             Value<String> arrival = const Value.absent(),
-            Value<DateTime> departureTime = const Value.absent(),
-            Value<DateTime> arrivalTime = const Value.absent(),
             Value<String> flightNumber = const Value.absent(),
             Value<String> airline = const Value.absent(),
-            Value<String> equipment = const Value.absent(),
-            Value<String> aircraftRegister = const Value.absent(),
+            Value<DateTime> departureDate = const Value.absent(),
+            Value<DateTime> arrivalDate = const Value.absent(),
             Value<DateTime?> createdAt = const Value.absent(),
             Value<DateTime?> updatedAt = const Value.absent(),
           }) =>
@@ -778,12 +662,10 @@ class $$LogDataTableTableManager extends RootTableManager<
             id: id,
             departure: departure,
             arrival: arrival,
-            departureTime: departureTime,
-            arrivalTime: arrivalTime,
             flightNumber: flightNumber,
             airline: airline,
-            equipment: equipment,
-            aircraftRegister: aircraftRegister,
+            departureDate: departureDate,
+            arrivalDate: arrivalDate,
             createdAt: createdAt,
             updatedAt: updatedAt,
           ),
@@ -791,12 +673,10 @@ class $$LogDataTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             required String departure,
             required String arrival,
-            required DateTime departureTime,
-            required DateTime arrivalTime,
             required String flightNumber,
             required String airline,
-            required String equipment,
-            required String aircraftRegister,
+            required DateTime departureDate,
+            required DateTime arrivalDate,
             Value<DateTime?> createdAt = const Value.absent(),
             Value<DateTime?> updatedAt = const Value.absent(),
           }) =>
@@ -804,12 +684,10 @@ class $$LogDataTableTableManager extends RootTableManager<
             id: id,
             departure: departure,
             arrival: arrival,
-            departureTime: departureTime,
-            arrivalTime: arrivalTime,
             flightNumber: flightNumber,
             airline: airline,
-            equipment: equipment,
-            aircraftRegister: aircraftRegister,
+            departureDate: departureDate,
+            arrivalDate: arrivalDate,
             createdAt: createdAt,
             updatedAt: updatedAt,
           ),
