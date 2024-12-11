@@ -1,3 +1,4 @@
+import 'package:fligth_log_book/config/routes.dart';
 import 'package:fligth_log_book/database/database.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
@@ -43,6 +44,7 @@ class _AddLogDataState extends State<AddLogData> {
         airline: _airlineController.text,
         departureDate: DateTime.parse(_departureDateController.text),
         arrivalDate: DateTime.parse(_arrivalDateController.text)));
+    Navigator.pop(context);
   }
 
   @override
