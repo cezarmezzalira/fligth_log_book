@@ -1,16 +1,13 @@
-import 'package:fligth_log_book/config/routes.dart';
-import 'package:fligth_log_book/database/database.dart';
+import 'package:fligth_log_book/controllers/database_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:get/get.dart';
+import 'package:fligth_log_book/config/routes.dart';
+import 'package:fligth_log_book/database/database.dart';
 
-class AddLogData extends StatefulWidget {
-  const AddLogData({super.key});
+import 'package:fligth_log_book/models/log_data.dart' as Model;
 
-  @override
-  State<AddLogData> createState() => _AddLogDataState();
-}
-
-class _AddLogDataState extends State<AddLogData> {
+class AddLogData extends GetView<DatabaseController> {
   final _formKey = GlobalKey<FormState>();
   final _departureAirportController = TextEditingController();
   final _arrivalAirportController = TextEditingController();
@@ -21,7 +18,8 @@ class _AddLogDataState extends State<AddLogData> {
 
   final database = AppDatabase();
 
-  _showDatePicker(TextEditingController editingController) async {
+  _showDatePicker(
+      BuildContext context, TextEditingController editingController) async {
     DateTime? pickedDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -29,21 +27,22 @@ class _AddLogDataState extends State<AddLogData> {
       lastDate: DateTime(2101),
     );
     if (pickedDate != null) {
-      setState(() {
-        editingController.text =
-            intl.DateFormat('yyyy-MM-dd').format(pickedDate);
-      });
+      editingController.text = intl.DateFormat('yyyy-MM-dd').format(pickedDate);
     }
   }
 
-  void _saveLogData() {
-    database.into(database.logData).insert(LogDataCompanion.insert(
-        departure: _departureAirportController.text,
-        arrival: _arrivalAirportController.text,
-        flightNumber: _flightNumberController.text,
-        airline: _airlineController.text,
-        departureDate: DateTime.parse(_departureDateController.text),
-        arrivalDate: DateTime.parse(_arrivalDateController.text)));
+  void _saveLogData(BuildContext context) {
+    Get.find<DatabaseController>().insertData(
+        logData: Model.LogData(
+      departure: _departureAirportController.text,
+      arrival: _arrivalAirportController.text,
+      flightNumber: _flightNumberController.text,
+      airline: _airlineController.text,
+      departureDate: DateTime.parse(_departureDateController.text),
+      arrivalDate: DateTime.parse(_arrivalDateController.text),
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ));
     Navigator.pop(context);
   }
 
@@ -93,7 +92,7 @@ class _AddLogDataState extends State<AddLogData> {
                   labelText: 'Departure Date',
                   hintText: 'Enter the Departure Date',
                 ),
-                onTap: () => _showDatePicker(_departureDateController),
+                onTap: () => _showDatePicker(context, _departureDateController),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the departure date';
@@ -107,7 +106,7 @@ class _AddLogDataState extends State<AddLogData> {
                   labelText: 'Arrival Date',
                   hintText: 'Enter the Arrival Date',
                 ),
-                onTap: () => _showDatePicker(_arrivalDateController),
+                onTap: () => _showDatePicker(context, _arrivalDateController),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter the arrival date';
@@ -144,7 +143,7 @@ class _AddLogDataState extends State<AddLogData> {
               ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    _saveLogData();
+                    _saveLogData(context);
                   }
                 },
                 child: const Text('Submit'),
