@@ -2,7 +2,6 @@ import 'package:fligth_log_book/controllers/database_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 import 'package:get/get.dart';
-import 'package:fligth_log_book/config/routes.dart';
 import 'package:fligth_log_book/database/database.dart';
 
 import 'package:fligth_log_book/models/log_data.dart' as Model;
