@@ -56,14 +56,18 @@ class AddLogData extends GetView<DatabaseController> {
         child: Form(
           key: _formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               TextFormField(
                 controller: _departureAirportController,
                 decoration: const InputDecoration(
                   labelText: 'Departure Airport',
+                  labelStyle: TextStyle(color: Colors.black),
                   hintText: 'Enter Departure Airport',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -72,11 +76,15 @@ class AddLogData extends GetView<DatabaseController> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _arrivalAirportController,
                 decoration: const InputDecoration(
                   labelText: 'Arrival Airport',
                   hintText: 'Enter Arrival Airport',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -85,11 +93,15 @@ class AddLogData extends GetView<DatabaseController> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _departureDateController,
                 decoration: const InputDecoration(
                   labelText: 'Departure Date',
                   hintText: 'Enter the Departure Date',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
                 ),
                 onTap: () => _showDatePicker(context, _departureDateController),
                 validator: (value) {
@@ -99,11 +111,15 @@ class AddLogData extends GetView<DatabaseController> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _arrivalDateController,
                 decoration: const InputDecoration(
                   labelText: 'Arrival Date',
                   hintText: 'Enter the Arrival Date',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
                 ),
                 onTap: () => _showDatePicker(context, _arrivalDateController),
                 validator: (value) {
@@ -113,11 +129,15 @@ class AddLogData extends GetView<DatabaseController> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _flightNumberController,
                 decoration: const InputDecoration(
                   labelText: 'Flight Number',
                   hintText: 'Enter Flight Number',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -126,11 +146,15 @@ class AddLogData extends GetView<DatabaseController> {
                   return null;
                 },
               ),
+              const SizedBox(height: 10),
               TextFormField(
                 controller: _airlineController,
                 decoration: const InputDecoration(
                   labelText: 'Airline',
                   hintText: 'Enter Airline',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                  ),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -139,7 +163,15 @@ class AddLogData extends GetView<DatabaseController> {
                   return null;
                 },
               ),
-              ElevatedButton(
+              const SizedBox(height: 16),
+              FilledButton(
+                style: FilledButton.styleFrom(
+                  minimumSize: const Size(400, 50),
+                  backgroundColor: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     _saveLogData(context);
