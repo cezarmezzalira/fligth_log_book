@@ -1,6 +1,5 @@
 import 'package:fligth_log_book/database/database.dart';
 import 'package:fligth_log_book/models/airport.dart';
-import 'package:fligth_log_book/remote/rest_client.dart';
 import 'package:fligth_log_book/repositories/airport_repository.dart';
 import 'package:fligth_log_book/repositories/log_data_repository.dart';
 import 'package:get/get.dart';
