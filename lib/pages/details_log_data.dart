@@ -41,7 +41,7 @@ class DetailsLogData extends GetView<DetailsController> {
                       size: 40,
                     ),
                     title: Text(
-                        "Departure from ${logData?.departure} - ${airportArrivalDetails?.location} at ${intl.DateFormat('dd/MM/yyyy').format(logData?.departureDate ?? DateTime.now())} "),
+                        "Departure from ${logData?.departure} - ${airportDepartureDetails?.location} at ${intl.DateFormat('dd/MM/yyyy').format(logData?.departureDate ?? DateTime.now())} "),
                   ),
                   ListTile(
                     leading: const Icon(
@@ -49,7 +49,21 @@ class DetailsLogData extends GetView<DetailsController> {
                       size: 40,
                     ),
                     title: Text(
-                        "Arrival to ${logData?.arrival} - ${airportDepartureDetails?.location} at ${intl.DateFormat('dd/MM/yyyy').format(logData?.departureDate ?? DateTime.now())} "),
+                        "Arrival to ${logData?.arrival} - ${airportArrivalDetails?.location} at ${intl.DateFormat('dd/MM/yyyy').format(logData?.departureDate ?? DateTime.now())} "),
+                  ),
+                  ListTile(
+                    leading: const Icon(
+                      Icons.flight,
+                      size: 40,
+                    ),
+                    title: Text("Flight Number: ${logData?.flightNumber}"),
+                  ),
+                  ListTile(
+                    leading: const Icon(
+                      Icons.airlines,
+                      size: 40,
+                    ),
+                    title: Text("Airline: ${logData?.airline}"),
                   ),
                 ],
               ),
