@@ -21,9 +21,18 @@ class LogDataRepositoryImpl implements LogDataRepository {
           arrivalDate: logData.arrivalDate,
         ));
   }
+
+  @override
+  Future<LogDataData?> getLogDataById(int id) {
+    AppDatabase appDatabase = Get.find<AppDatabase>();
+    return (appDatabase.select(appDatabase.logData)
+          ..where((logData) => logData.id.equals(id)))
+        .getSingleOrNull();
+  }
 }
 
 abstract class LogDataRepository {
   Future<List<LogDataData>> getSavedData();
   Future<int> insertData({Model.LogData? logData});
+  Future<LogDataData?> getLogDataById(int id);
 }

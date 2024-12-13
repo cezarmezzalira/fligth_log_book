@@ -28,8 +28,8 @@ class _AirportRestClient implements AirportRestClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'iata': airportCode};
     final _headers = <String, dynamic>{
-      r'x-rapidapi-host': '',
-      r'x-rapidapi-key': '',
+      r'x-rapidapi-host': Environment.rapidApiHost,
+      r'x-rapidapi-key': Environment.rapidApiKey,
     };
     _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
