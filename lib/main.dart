@@ -1,6 +1,6 @@
 import 'package:fligth_log_book/bindings/main_binding.dart';
-import 'package:fligth_log_book/pages/add_log_data.dart';
-import 'package:fligth_log_book/pages/edit_log_data.dart';
+import 'package:fligth_log_book/pages/add_page.dart';
+
 import 'package:fligth_log_book/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fligth_log_book/config/routes.dart';
@@ -28,8 +28,7 @@ class App extends StatelessWidget {
             name: homeRoute,
             page: () => const HomePage(),
             binding: MainBindings()),
-        GetPage(name: addLogRoute, page: () => AddLogData()),
-        GetPage(name: editLogRoute, page: () => const EditLogData()),
+        GetPage(name: addLogRoute, page: () => AddLogDataPage()),
       ],
     );
   }

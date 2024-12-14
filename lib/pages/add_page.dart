@@ -6,7 +6,7 @@ import 'package:fligth_log_book/database/database.dart';
 
 import 'package:fligth_log_book/models/log_data.dart' as Model;
 
-class AddLogData extends GetView<DatabaseController> {
+class AddLogDataPage extends GetView<DatabaseController> {
   final _formKey = GlobalKey<FormState>();
   final _departureAirportController = TextEditingController();
   final _arrivalAirportController = TextEditingController();

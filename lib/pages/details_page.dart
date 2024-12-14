@@ -1,5 +1,6 @@
 import 'package:fligth_log_book/controllers/details_controller.dart';
 import 'package:fligth_log_book/database/database.dart';
+import 'package:fligth_log_book/widgets/map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart' as intl;
@@ -31,6 +32,10 @@ class DetailsLogData extends GetView<DetailsController> {
           } else {
             var [airportDepartureDetails, airportArrivalDetails] =
                 snapshot.data ?? [];
+            var departureLat = airportDepartureDetails?.latitude;
+            var arrivalLat = airportArrivalDetails?.latitude;
+            var departureLong = airportDepartureDetails?.longitude;
+            var arrivalLong = airportArrivalDetails?.longitude;
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
@@ -65,6 +70,16 @@ class DetailsLogData extends GetView<DetailsController> {
                     ),
                     title: Text("Airline: ${logData?.airline}"),
                   ),
+                  const SizedBox(height: 16),
+                  Container(
+                    height: 300,
+                    color: Colors.white,
+                    padding: const EdgeInsets.all(5.0),
+                    child: MapLocation(coordinates: [
+                      {"lat": departureLat, "lon": departureLong},
+                      {"lat": arrivalLat, "lon": arrivalLong}
+                    ]),
+                  )
                 ],
               ),
             );
