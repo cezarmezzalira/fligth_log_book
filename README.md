@@ -11,3 +11,13 @@
 - _Flight Log Details Screen_: Shows detailed information about a specific flight log and includes a button to show the route map.
 
 - _Route Map Screen_: Displays a map visualizing the travel route with a line from the departure airport to the arrival airport.
+
+## Other Features
+
+- State management with GetX
+- API REST Client Retrofit
+- Local SQLite Database with Drift
+- Used Google Maps to show the route map
+- Environment variables with dart-defines
+
+Link vídeo preview: <https://youtu.be/8Fslh4RE_T8>
